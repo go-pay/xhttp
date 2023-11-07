@@ -1,10 +1,10 @@
 module github.com/go-pay/xhttp
 
-go 1.20.0
+go 1.20
 
 require (
-	github.com/go-pay/bm v0.0.0-20231104140628-922a8107c7dd
-	github.com/go-pay/xlog v0.0.0-20231104134525-b6ce65b7e035
+	github.com/go-pay/bm v0.0.1
+	github.com/go-pay/xlog v0.0.1
 )
 
 require (
