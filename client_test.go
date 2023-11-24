@@ -2,11 +2,11 @@ package xhttp
 
 import (
 	"context"
+	"log"
 	"os"
 	"testing"
 
 	"github.com/go-pay/bm"
-	"github.com/go-pay/xlog"
 )
 
 type HttpGet struct {
@@ -18,33 +18,30 @@ type HttpGet struct {
 var ctx = context.Background()
 
 func TestHttpGet(t *testing.T) {
-	xlog.Level = xlog.DebugLevel
 	var client *Client
 	// test
 	_, bs, err := client.Req().Get("http://www.baidu.com").EndBytes(ctx)
 	if err != nil {
-		xlog.Error(err)
+		log.Println(err)
 		return
 	}
-	xlog.Debug(string(bs))
+	log.Println(string(bs))
 
 	//rsp := new(HttpGet)
 	//_, err = client.Type(TypeJSON).Get("http://api.igoogle.ink/app/v1/ping").EndStruct(ctx, rsp)
 	//if err != nil {
-	//	xlog.Error(err)
+	//	log.Println(err)
 	//	return
 	//}
-	//xlog.Debug(rsp)
+	//log.Println(rsp)
 }
 
 func TestHttpUploadFile(t *testing.T) {
-	xlog.Level = xlog.DebugLevel
 	fileContent, err := os.ReadFile("logo.png")
 	if err != nil {
-		xlog.Error(err)
+		log.Println(err)
 		return
 	}
-	//xlog.Debug("fileByte：", string(fileContent))
 
 	bmm := make(bm.BodyMap)
 	bmm.SetBodyMap("meta", func(bm bm.BodyMap) {
@@ -60,8 +57,8 @@ func TestHttpUploadFile(t *testing.T) {
 		SendMultipartBodyMap(bmm).
 		EndStruct(ctx, rsp)
 	if err != nil {
-		xlog.Error(err)
+		log.Println(err)
 		return
 	}
-	xlog.Debugf("%+v", rsp)
+	log.Printf("%+v", rsp)
 }
