@@ -18,10 +18,10 @@ func defaultClient() *Client {
 			Timeout: 60 * time.Second,
 			Transport: &http.Transport{
 				Proxy: http.ProxyFromEnvironment,
-				DialContext: net.Dialer{
+				DialContext: defaultTransportDialContext(&net.Dialer{
 					Timeout:   30 * time.Second,
 					KeepAlive: 30 * time.Second,
-				}.DialContext,
+				}),
 				TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
 				MaxIdleConns:          100,
 				IdleConnTimeout:       90 * time.Second,
