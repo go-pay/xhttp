@@ -18,7 +18,7 @@ type HttpGet struct {
 var ctx = context.Background()
 
 func TestHttpGet(t *testing.T) {
-	var client *Client
+	client := NewClient()
 	// test
 	_, bs, err := client.Req().Get("http://www.baidu.com").EndBytes(ctx)
 	if err != nil {
