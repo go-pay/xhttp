@@ -21,7 +21,6 @@ func defaultClient() *Client {
 				DialContext: defaultTransportDialContext(&net.Dialer{
 					Timeout:   30 * time.Second,
 					KeepAlive: 30 * time.Second,
-					DualStack: true,
 				}),
 				TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
 				MaxIdleConns:          100,
