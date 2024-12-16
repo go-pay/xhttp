@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+// DefaultClient is the default Client and is used by Req.
+var DefaultClient = defaultClient()
+
 type Client struct {
 	HttpClient *http.Client
 	bodySize   int // body size limit(MB), default is 10MB
@@ -37,7 +40,11 @@ func defaultClient() *Client {
 
 // NewClient , default tls.Config{InsecureSkipVerify: true}
 func NewClient() (client *Client) {
-	return defaultClient()
+	if DefaultClient == nil {
+		return defaultClient()
+	}
+
+	return DefaultClient
 }
 
 func (c *Client) SetTransport(transport http.RoundTripper) (client *Client) {
