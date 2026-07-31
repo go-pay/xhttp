@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+// DefaultClient is the default Client and is used by Req.
+var DefaultClient = defaultClient()
+
 type Client struct {
 	HttpClient *http.Client
 	bodySizeMB int // body size limit (MB), default is 10MB
@@ -28,7 +31,11 @@ func defaultClient() *Client {
 // NewClient 默认启用 TLS 证书校验。
 // 沙箱或自签证书等场景需跳过校验时，调用 SetHttpTLSConfig 传入自定义 *tls.Config。
 func NewClient() (client *Client) {
-	return defaultClient()
+	if DefaultClient == nil {
+		return defaultClient()
+	}
+
+	return DefaultClient
 }
 
 func (c *Client) SetTransport(transport http.RoundTripper) (client *Client) {
